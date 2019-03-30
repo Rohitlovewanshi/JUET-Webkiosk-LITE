@@ -2,6 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 from os import system, name
 
+def clear(): 
+    if name == 'nt': 
+        _ = system('cls') 
+    else: 
+        _ = system('clear')
 session = requests.Session()
 url = 'https://webkiosk.juet.ac.in/CommonFiles/UserAction.jsp'
 data = {
@@ -24,15 +29,13 @@ def attendence():
     for data in raw_data:
         if not (str(data) == '\xa0' or str(data)==''):
             refined_data.append(data)
-    print(refined_data)
     dict_data = { }
     for i in range(0,len(refined_data)):
         if len(refined_data[i])>3:
             dict_data[refined_data[i]] = refined_data[i+1]
     #clear()
     #clear()
-    for subject,attendence in dict_data.items():
-        print(subject,'=',attendence)
+    print(dict_data)
 def cgpa():
     cgpa = session.get("https://webkiosk.juet.ac.in/StudentFiles/Exam/StudCGPAReport.jsp")
     html_form = cgpa.text
@@ -44,18 +47,15 @@ def cgpa():
             d=(h.split('\n'))
             for i in d:
                 lst.append(i)
-    print(lst)
-    lsta=[]
-    for tab in clean_data.findAll("table",{"rules" : "NONE"}):
-        for link in tab.findAll("td"):
-            h=str(link.text)
-            d=(h.split('\n'))
-            for i in d:
-                lsta.append(i)
-def clear(): 
-    if name == 'nt': 
-        _ = system('cls') 
-    else: 
-        _ = system('clear')
+    lst = lst[8:]
+    dict_data = { }
+    semester = 1
+    sgpa = 6
+    for i in range(0,int(len(lst)/8)):
+        dict_data.update({semester: float(lst[sgpa])})
+        sgpa+=8
+        semester+=1
+    dict_data.update({'CGPA':float(lst[-1])})
+    print(dict_data)
+cgpa()
 attendence()
-#cgpa()
