@@ -2,18 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 from os import system, name
 
-def clear(): 
-    if name == 'nt': 
-        _ = system('cls') 
-    else: 
-        _ = system('clear')
 session = requests.Session()
 url = 'https://webkiosk.juet.ac.in/CommonFiles/UserAction.jsp'
 data = {
     'InstCode' : 'JUET',
     'UserType' : 'S',
     'MemberCode' : '171B102',
-    'Password' : '1200'
+    'Password' : '*********'
 }
 kiosk_session = session.post(url,data)
 def attendence():
