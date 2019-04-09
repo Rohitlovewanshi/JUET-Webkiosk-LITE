@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 from os import system, name
+import collections
+
 
 session = requests.Session()
 url = 'https://webkiosk.juet.ac.in/CommonFiles/UserAction.jsp'
@@ -8,7 +10,7 @@ data = {
     'InstCode' : 'JUET',
     'UserType' : 'S',
     'MemberCode' : '171B102',
-    'Password' : '*********'
+    'Password' : '****'
 }
 kiosk_session = session.post(url,data)
 def attendence():
@@ -28,9 +30,9 @@ def attendence():
     for i in range(0,len(refined_data)):
         if len(refined_data[i])>3:
             dict_data[refined_data[i]] = refined_data[i+1]
-    #clear()
-    #clear()
-    print(dict_data)
+    last = collections.OrderedDict(dict_data)
+    print(last)
+
 def cgpa():
     cgpa = session.get("https://webkiosk.juet.ac.in/StudentFiles/Exam/StudCGPAReport.jsp")
     html_form = cgpa.text
@@ -47,10 +49,10 @@ def cgpa():
     semester = 1
     sgpa = 6
     for i in range(0,int(len(lst)/8)):
-        dict_data.update({semester: float(lst[sgpa])})
+        dict_data.update({'sem'+str(semester): str(lst[sgpa])})
         sgpa+=8
         semester+=1
-    dict_data.update({'CGPA':float(lst[-1])})
+    dict_data.update({'CGPA':str(lst[-1])})
     print(dict_data)
-cgpa()
+#cgpa()
 attendence()
