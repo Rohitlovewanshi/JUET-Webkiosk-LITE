@@ -9,8 +9,8 @@ url = 'https://webkiosk.juet.ac.in/CommonFiles/UserAction.jsp'
 data = {
     'InstCode' : 'JUET',
     'UserType' : 'S',
-    'MemberCode' : '171B099',
-    'Password' : 'your_password'
+    'MemberCode' : 'Write your enrollment here',
+    'Password' : 'Write your password here'
 }
 kiosk_session = session.post(url,data)
 def attendence():
