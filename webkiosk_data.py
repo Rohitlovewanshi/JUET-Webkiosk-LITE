@@ -10,7 +10,7 @@ data = {
     'InstCode' : 'JUET',
     'UserType' : 'S',
     'MemberCode' : '171B099',
-    'Password' : 'Sona2016'
+    'Password' : 'your_password'
 }
 kiosk_session = session.post(url,data)
 def attendence():
